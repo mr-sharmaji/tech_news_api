@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+
+<div class="jumbotron shadow">
+  <h1 class="display-3">Welcome To Mr-sharmaji's Tech News Page</h1>
+  <p class="lead">Your Source for Up To The Minute Technology News Updates!</p>
+  <hr class="my-4">
+  <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+</div>
+
+</div>
+
+<div class="container">
+  <div class="row">
+    {% for x in api.articles %}
+    <div class="col-sm ">
+    <div class="card shadow p-3 mb-5" style="width: 18rem;">
+      <img src="{{ x.urlToImage }}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ x.title }}</h5>
+        <p class="text-muted"> By: {{ x.author }}</p>
+        <p class="card-text">{{ x.description }}</p>
+        <p>
+          <input type="button" class="btn btn-primary add-button" id="myBtn" onclick="changeValue()" data-toggle="collapse" href="#{{x.author|cut:" " }}" role="button" aria-expanded="false" aria-controls="collapseExample" value="Read More">
+
+        </p>
+        <div class="collapse" id="{{ x.author|cut:" " }}">
+          <div class="card card-body">
+            {{ x.content|truncatechars:200 }}
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="card-footer">
+     <small class="text-muted">Published On: {{ x.publishedAt|cut:"T"|cut:"Z"|slice:":10" }}</small>
+     <small class="text-muted">Published At: {{ x.publishedAt|cut:"T"|cut:"Z"|slice:"10:15" }}</small>
+   </div>
+      </div>
+    </div>
+    <br>
+  </div>
+    {% endfor %}
+  </div>
+</div>
+<footer class="bg-dark page-footer font-small">
+
+  <!-- Footer Elements -->
+  <!-- Footer Elements -->
+
+  <!-- Copyright -->
+  <div class="text-light footer-copyright text-center py-3">© 2019 Copyright: Subham Sharma
+    <a class="text-light"target="_blank" href="https://mr-sharmaji.github.io"> mr-sharmaji.github.io</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+{% endblock %}

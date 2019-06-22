@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container jumbotron">
+  <h1 class="display-3">Your Search Result</h1>
+  {% if messages %}
+  <div class="alert alert-dark" role="alert">
+
+        {% for message in messages %}
+      {{ message }}
+        {% endfor %}
+
+    {% endif %}
+  </div>
+</div>
+<br>
+
+<div class="container">
+
+  <div class="row">
+{% for lookups in update.articles %}
+{% if lookup|lower in lookups.title|lower %}
+<div class="col-sm ">
+<div class="card shadow p-3 mb-5" style="width: 18rem;">
+  <img src="{{ lookups.urlToImage }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ lookups.title }}</h5>
+    <p class="text-muted"> By: {{ lookups.author }}</p>
+    <p class="card-text">{{ lookups.description }}</p>
+    <p>
+      <a class="btn btn-primary" data-toggle="collapse" href="#{{lookups.author|cut:" " }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Read More..</a>
+    </p>
+    <div class="collapse" id="{{ lookups.author|cut:" " }}">
+      <div class="card card-body">
+        {{ lookups.content|truncatechars:200 }}
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="card-footer">
+ <small class="text-muted">Published On: {{ lookups.publishedAt|cut:"T"|cut:"Z"|slice:":10" }}</small>
+ <small class="text-muted">Published At: {{ lookups.publishedAt|cut:"T"|cut:"Z"|slice:"10:15" }}</small>
+</div>
+  </div>
+</div>
+<br>
+</div>
+{%endif%}
+{% endfor%}
+
+<br>
+<br>
+</div>
+</div>
+
+<footer class="bg-dark page-footer font-small fixed-bottom">
+
+  <!-- Footer Elements -->
+  <!-- Footer Elements -->
+
+  <!-- Copyright -->
+  <div class="text-light footer-copyright text-center py-3">© 2019 Copyright: Subham Sharma
+    <a class="text-light"target="_blank" href="https://mr-sharmaji.github.io"> mr-sharmaji.github.io</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+{% endblock %}
